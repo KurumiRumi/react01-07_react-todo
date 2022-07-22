@@ -18,6 +18,12 @@ export const App = () => {
     setTodoText("");
   };
 
+  const onClickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
+  };
+
   return (
     <>
       <div className="input-area">
@@ -34,13 +40,14 @@ export const App = () => {
       <div className="incomplete-area">
         <p className="title">未完了のTODO</p>
         <ul id="incomplete-list">
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               // mapを使うときはkeyで何個目かの目印を付ける
               <li key={todo} className="list-row">
                 <div>{todo}</div>
                 <button>完了</button>
-                <button>削除</button>
+                {/* 関数に引数を渡す場合アロー関数にする必要がある */}
+                <button onClick={() => onClickDelete(index)}>削除</button>
               </li>
             );
           })}
